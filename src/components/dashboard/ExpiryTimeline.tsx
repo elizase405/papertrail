@@ -1,6 +1,7 @@
 import React from 'react';
 import { Document } from '../../context/DocumentContext';
-import { FileText } from 'lucide-react';
+import { FileText, AlertTriangle, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface ExpiryTimelineProps {
   documents: Document[];
@@ -43,6 +44,16 @@ const ExpiryTimeline: React.FC<ExpiryTimelineProps> = ({ documents }) => {
     }
   };
 
+  const getStatusIcon = (daysUntilExpiry: number) => {
+    if (daysUntilExpiry <= 7) {
+      return <AlertTriangle className="w-4 h-4 text-white" />;
+    } else if (daysUntilExpiry <= 30) {
+      return <Clock className="w-4 h-4 text-white" />;
+    } else {
+      return <FileText className="w-4 h-4 text-white" />;
+    }
+  };
+
   if (upcomingExpirations.length === 0) {
     return (
       <div className="text-center py-8">
@@ -60,7 +71,7 @@ const ExpiryTimeline: React.FC<ExpiryTimelineProps> = ({ documents }) => {
         
         {/* Timeline items */}
         <div className="space-y-8">
-          {Object.entries(groupedByMonth).map(([month, docs]) => (
+          {Object.entries(groupedByMonth).map(([month, docs], monthIndex) => (
             <div key={month} className="relative">
               {/* Month label */}
               <div className="mb-4 ml-10 text-sm font-medium text-gray-600 dark:text-gray-400">
@@ -69,13 +80,20 @@ const ExpiryTimeline: React.FC<ExpiryTimelineProps> = ({ documents }) => {
               
               {/* Documents in this month */}
               <div className="space-y-4">
-                {docs.map(doc => (
-                  <div key={doc.id} className="flex items-start">
+                {docs.map((doc, docIndex) => (
+                  <motion.div 
+                    key={doc.id} 
+                    className="flex items-start"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      duration: 0.3, 
+                      delay: 0.1 * (monthIndex + docIndex) 
+                    }}
+                  >
                     {/* Timeline dot */}
                     <div className={`relative z-10 flex items-center justify-center w-8 h-8 rounded-full ${getStatusColor(doc.daysUntilExpiry)} shadow-md`}>
-                      <span className="text-white text-xs font-bold">
-                        {new Date(doc.expiryDate).getDate()}
-                      </span>
+                      {getStatusIcon(doc.daysUntilExpiry)}
                     </div>
                     
                     {/* Document card */}
@@ -83,7 +101,13 @@ const ExpiryTimeline: React.FC<ExpiryTimelineProps> = ({ documents }) => {
                       <div className="flex justify-between">
                         <div>
                           <h4 className="font-medium text-gray-900 dark:text-white">{doc.name}</h4>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">{doc.type}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            {doc.type} • {doc.organization && `${doc.organization} • `}
+                            {new Date(doc.expiryDate).toLocaleDateString('en-US', {
+                              month: 'short',
+                              day: 'numeric'
+                            })}
+                          </p>
                         </div>
                         <div className="text-right">
                           <span className="text-sm font-medium text-gray-900 dark:text-white">{doc.daysUntilExpiry} days</span>
@@ -91,7 +115,7 @@ const ExpiryTimeline: React.FC<ExpiryTimelineProps> = ({ documents }) => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X } from 'lucide-react';
+import { X, ArrowRight, ArrowLeft } from 'lucide-react';
 import { useUserSettings } from '../../context/UserSettingsContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,20 +19,20 @@ const OnboardingTour: React.FC = () => {
   const steps: OnboardingStep[] = [
     {
       title: 'Welcome to PaperTrail',
-      content: 'This is your document compliance dashboard. Here you can track all your important documents and their expiry dates.',
-      target: 'body',
+      content: 'Your document compliance tracker. Let\'s take a quick tour to help you get started.',
+      target: '.dashboard-overview',
       placement: 'bottom'
     },
     {
-      title: 'Document Management',
-      content: 'Add new documents by clicking this button. You can upload files and set expiry dates to stay compliant.',
+      title: 'Add Documents',
+      content: 'Click here to add new documents, set expiry dates, and upload files.',
       target: '.add-document-button',
-      placement: 'left'
+      placement: 'bottom'
     },
     {
-      title: 'Document Overview',
-      content: 'This chart shows the status of all your documents at a glance.',
-      target: '.documents-link',
+      title: 'Track Expirations',
+      content: 'Monitor upcoming document expirations and get alerts before they expire.',
+      target: '.expiry-tracker-link',
       placement: 'right'
     }
   ];
@@ -44,7 +44,7 @@ const OnboardingTour: React.FC = () => {
       const timer = setTimeout(() => {
         setIsVisible(true);
         positionTooltip(steps[0]);
-      }, 1000);
+      }, 1500);
       
       return () => clearTimeout(timer);
     }
@@ -139,7 +139,7 @@ const OnboardingTour: React.FC = () => {
           width: 320
         }}
       >
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 p-4">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 p-5">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-lg font-bold text-gray-900 dark:text-white">
               {steps[currentStep].title}
@@ -147,17 +147,18 @@ const OnboardingTour: React.FC = () => {
             <button 
               onClick={completeOnboarding}
               className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              aria-label="Close tour"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
           
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <p className="text-gray-600 dark:text-gray-300 mb-6">
             {steps[currentStep].content}
           </p>
           
           <div className="flex justify-between items-center">
-            <div className="flex space-x-1">
+            <div className="flex space-x-2">
               {steps.map((_, index) => (
                 <div 
                   key={index}
@@ -170,21 +171,29 @@ const OnboardingTour: React.FC = () => {
               ))}
             </div>
             
-            <div className="flex space-x-2">
+            <div className="flex space-x-3">
               {currentStep > 0 && (
                 <button 
                   onClick={prevStep}
-                  className="px-3 py-1 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  className="px-4 py-2 text-sm flex items-center text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                 >
+                  <ArrowLeft className="w-4 h-4 mr-1" />
                   Back
                 </button>
               )}
               
               <button 
                 onClick={nextStep}
-                className="px-3 py-1 text-sm bg-gray-900 text-white dark:bg-gray-700 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600"
+                className="px-4 py-2 text-sm bg-gray-900 text-white dark:bg-gray-700 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-600 flex items-center"
               >
-                {currentStep < steps.length - 1 ? 'Next' : 'Finish'}
+                {currentStep < steps.length - 1 ? (
+                  <>
+                    Next
+                    <ArrowRight className="w-4 h-4 ml-1" />
+                  </>
+                ) : (
+                  'Got it!'
+                )}
               </button>
             </div>
           </div>

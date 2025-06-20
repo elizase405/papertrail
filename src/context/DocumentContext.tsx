@@ -12,6 +12,9 @@ export interface Document {
   daysUntilExpiry: number;
   category?: string;
   userId: string;
+  notes?: string;
+  organization?: string;
+  renewalContact?: string;
 }
 
 // Define document context type
@@ -41,7 +44,10 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-12-15',
     expiryDate: '2024-03-20',
     fileName: 'business_license_2024.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Annual renewal required. Contact city business office 30 days before expiry.',
+    organization: 'City Business Office',
+    renewalContact: 'licensing@citybusiness.gov'
   },
   {
     name: 'ISO 27001 Certificate',
@@ -50,7 +56,10 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-11-10',
     expiryDate: '2024-12-15',
     fileName: 'iso_27001_cert.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Requires annual audit and recertification every 3 years.',
+    organization: 'International Standards Organization',
+    renewalContact: 'certifications@iso.org'
   },
   {
     name: 'Fire Safety Certificate',
@@ -59,7 +68,10 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-10-05',
     expiryDate: '2024-01-10',
     fileName: 'fire_safety_cert.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Inspection required before renewal. Schedule at least 2 weeks in advance.',
+    organization: 'Fire Department',
+    renewalContact: 'inspections@firedept.gov'
   },
   {
     name: 'Data Protection Registration',
@@ -68,7 +80,10 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-09-20',
     expiryDate: '2024-08-30',
     fileName: 'data_protection_reg.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Annual fee based on company size. Review privacy policy before renewal.',
+    organization: 'Data Protection Authority',
+    renewalContact: 'registrations@dataprotection.gov'
   },
   {
     name: 'Professional Indemnity Insurance',
@@ -77,7 +92,10 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-12-01',
     expiryDate: '2024-02-28',
     fileName: 'indemnity_insurance.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Coverage: $2M. Consider increasing for next renewal period.',
+    organization: 'Acme Insurance Co.',
+    renewalContact: 'renewals@acmeinsurance.com'
   },
   {
     name: 'Health & Safety Policy',
@@ -86,7 +104,10 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-11-15',
     expiryDate: '2024-05-15',
     fileName: 'health_safety_policy.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Annual review required. Must be signed by CEO and Health & Safety officer.',
+    organization: 'Internal',
+    renewalContact: 'safety@company.com'
   },
   {
     name: 'Employee Handbook',
@@ -95,7 +116,10 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-10-10',
     expiryDate: '2024-10-10',
     fileName: 'employee_handbook.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Annual review with legal team. Update employment laws section.',
+    organization: 'Internal',
+    renewalContact: 'hr@company.com'
   },
   {
     name: 'Tax Compliance Certificate',
@@ -104,7 +128,58 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     uploadDate: '2023-09-15',
     expiryDate: '2024-04-15',
     fileName: 'tax_compliance.pdf',
-    userId: 'test@example.com'
+    userId: 'test@example.com',
+    notes: 'Requires all tax filings to be up to date. Schedule review with accounting.',
+    organization: 'Tax Authority',
+    renewalContact: 'compliance@taxauthority.gov'
+  },
+  {
+    name: 'Software License - Adobe Creative Cloud',
+    type: 'License',
+    category: 'IT',
+    uploadDate: '2023-08-10',
+    expiryDate: '2024-08-10',
+    fileName: 'adobe_cc_license.pdf',
+    userId: 'test@example.com',
+    notes: '25 user licenses. Consider reducing if some are unused.',
+    organization: 'Adobe Inc.',
+    renewalContact: 'enterprise@adobe.com'
+  },
+  {
+    name: 'Office Lease Agreement',
+    type: 'Contract',
+    category: 'Facilities',
+    uploadDate: '2022-06-01',
+    expiryDate: '2025-06-01',
+    fileName: 'office_lease.pdf',
+    userId: 'test@example.com',
+    notes: '3-year term with 6-month notice period for renewal negotiation.',
+    organization: 'Skyline Properties',
+    renewalContact: 'leasing@skylineproperties.com'
+  },
+  {
+    name: 'GDPR Compliance Certification',
+    type: 'Certificate',
+    category: 'Privacy',
+    uploadDate: '2023-07-15',
+    expiryDate: '2024-07-15',
+    fileName: 'gdpr_cert.pdf',
+    userId: 'test@example.com',
+    notes: 'Annual audit required. Schedule 2 months before expiry.',
+    organization: 'EU Data Protection Board',
+    renewalContact: 'certifications@edpb.europa.eu'
+  },
+  {
+    name: 'Cybersecurity Insurance',
+    type: 'Insurance',
+    category: 'Security',
+    uploadDate: '2023-11-01',
+    expiryDate: '2024-11-01',
+    fileName: 'cyber_insurance.pdf',
+    userId: 'test@example.com',
+    notes: 'Coverage: $5M. Requires annual security assessment.',
+    organization: 'SecureGuard Insurance',
+    renewalContact: 'cyber@secureguard.com'
   }
 ];
 
@@ -196,7 +271,8 @@ export const DocumentProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return documents.filter(doc => 
       doc.name.toLowerCase().includes(lowerTerm) || 
       doc.type.toLowerCase().includes(lowerTerm) ||
-      (doc.category && doc.category.toLowerCase().includes(lowerTerm))
+      (doc.category && doc.category.toLowerCase().includes(lowerTerm)) ||
+      (doc.organization && doc.organization.toLowerCase().includes(lowerTerm))
     );
   };
 
