@@ -18,46 +18,22 @@ const OnboardingTour: React.FC = () => {
 
   const steps: OnboardingStep[] = [
     {
-      title: 'Welcome to PaperTrail!',
-      content: 'Let\'s take a quick tour to help you get started with document compliance tracking.',
+      title: 'Welcome to PaperTrail',
+      content: 'This is your document compliance dashboard. Here you can track all your important documents and their expiry dates.',
       target: 'body',
       placement: 'bottom'
     },
     {
-      title: 'Dashboard Overview',
-      content: 'This is your dashboard where you can see an overview of all your documents and their status.',
-      target: '.dashboard-overview',
-      placement: 'bottom'
-    },
-    {
-      title: 'Add Documents',
-      content: 'Click here to add new documents to track their expiry dates.',
+      title: 'Document Management',
+      content: 'Add new documents by clicking this button. You can upload files and set expiry dates to stay compliant.',
       target: '.add-document-button',
       placement: 'left'
     },
     {
-      title: 'Document List',
-      content: 'View all your documents here. You can filter, sort, and search for specific documents.',
+      title: 'Document Overview',
+      content: 'This chart shows the status of all your documents at a glance.',
       target: '.documents-link',
       placement: 'right'
-    },
-    {
-      title: 'Expiry Tracker',
-      content: 'Keep track of documents that are expiring soon to stay compliant.',
-      target: '.expiry-tracker-link',
-      placement: 'right'
-    },
-    {
-      title: 'Settings',
-      content: 'Customize your experience and notification preferences here.',
-      target: '.settings-link',
-      placement: 'right'
-    },
-    {
-      title: 'You\'re all set!',
-      content: 'You\'re now ready to use PaperTrail. You can restart this tour anytime from Settings.',
-      target: 'body',
-      placement: 'bottom'
     }
   ];
 
