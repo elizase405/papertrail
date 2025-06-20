@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FileText, Clock, CheckCircle, AlertTriangle, TrendingUp, Plus } from 'lucide-react';
+import { FileText, Clock, CheckCircle, AlertTriangle, TrendingUp, Plus, BarChart } from 'lucide-react';
 import { useDocuments } from '../context/DocumentContext';
 import { useAuth } from '../context/AuthContext';
 import AddDocumentModal from '../components/documents/AddDocumentModal';
+import ExpiryTimeline from '../components/dashboard/ExpiryTimeline';
+import DocumentChart from '../components/dashboard/DocumentChart';
 
 const HomePage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -80,7 +82,7 @@ const HomePage: React.FC = () => {
   return (
     <div className="space-y-8">
       {/* Welcome Section */}
-      <div className="fade-in-section">
+      <div className="fade-in-section dashboard-overview">
         <div className="minimal-card p-8 bg-gradient-to-br from-gray-900 to-gray-800 text-white dark:from-gray-800 dark:to-gray-900">
           <div className="flex items-center justify-between">
             <div>
@@ -119,6 +121,41 @@ const HomePage: React.FC = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Expiry Timeline and Document Chart */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Expiry Timeline */}
+        <div className="fade-in-section">
+          <div className="minimal-card p-6 dark:bg-gray-800">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Expiry Timeline</h2>
+              <a href="/expiry-tracker" className="text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors">
+                View all
+              </a>
+            </div>
+            
+            <ExpiryTimeline documents={documents} />
+          </div>
+        </div>
+
+        {/* Document Chart */}
+        <div className="fade-in-section">
+          <div className="minimal-card p-6 dark:bg-gray-800">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">Document Overview</h2>
+              <div className="flex items-center space-x-2">
+                <BarChart className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+              </div>
+            </div>
+            
+            <DocumentChart 
+              active={activeDocuments.length} 
+              expiring={expiringDocuments.length} 
+              expired={expiredDocuments.length} 
+            />
+          </div>
+        </div>
       </div>
 
       {/* Main Content Grid */}
@@ -162,7 +199,7 @@ const HomePage: React.FC = () => {
                   <p className="text-gray-500 dark:text-gray-400 mb-4">No documents yet</p>
                   <button 
                     onClick={() => setIsModalOpen(true)}
-                    className="minimal-button-primary"
+                    className="minimal-button-primary add-document-button"
                   >
                     <Plus className="w-4 h-4 mr-2" />
                     Add Your First Document
@@ -179,17 +216,17 @@ const HomePage: React.FC = () => {
             <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Quick Actions</h3>
             <div className="space-y-3">
               <button 
-                className="minimal-button-primary w-full"
+                className="minimal-button-primary w-full add-document-button"
                 onClick={() => setIsModalOpen(true)}
               >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Document
               </button>
-              <a href="/expiry-tracker" className="minimal-button-secondary w-full inline-flex items-center justify-center">
+              <a href="/expiry-tracker" className="minimal-button-secondary w-full inline-flex items-center justify-center expiry-tracker-link">
                 <Clock className="w-4 h-4 mr-2" />
                 Check Expiries
               </a>
-              <a href="/documents" className="minimal-button-secondary w-full inline-flex items-center justify-center">
+              <a href="/documents" className="minimal-button-secondary w-full inline-flex items-center justify-center documents-link">
                 <TrendingUp className="w-4 h-4 mr-2" />
                 View All Documents
               </a>

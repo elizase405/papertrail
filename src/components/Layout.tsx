@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
+import OnboardingTour from './onboarding/OnboardingTour';
+import { useUserSettings } from '../context/UserSettingsContext';
 
 const Layout: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { settings } = useUserSettings();
+  const location = useLocation();
 
   const handleMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -46,7 +50,7 @@ const Layout: React.FC = () => {
     elements.forEach((el) => observer.observe(el));
 
     return () => observer.disconnect();
-  }, []);
+  }, [location.pathname]);
 
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
@@ -63,6 +67,9 @@ const Layout: React.FC = () => {
           </div>
         </main>
       </div>
+
+      {/* Onboarding Tour */}
+      {!settings.hasCompletedOnboarding && <OnboardingTour />}
     </div>
   );
 };
