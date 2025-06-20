@@ -180,6 +180,102 @@ const sampleDocuments: Omit<Document, 'id' | 'status' | 'daysUntilExpiry'>[] = [
     notes: 'Coverage: $5M. Requires annual security assessment.',
     organization: 'SecureGuard Insurance',
     renewalContact: 'cyber@secureguard.com'
+  },
+  {
+    name: 'Food Handling License',
+    type: 'License',
+    category: 'Operations',
+    uploadDate: '2023-10-12',
+    expiryDate: '2024-04-12',
+    fileName: 'food_handling_license.pdf',
+    userId: 'test@example.com',
+    notes: 'All staff must complete food safety training before renewal.',
+    organization: 'Health Department',
+    renewalContact: 'foodsafety@health.gov'
+  },
+  {
+    name: 'Trademark Registration',
+    type: 'Registration',
+    category: 'Legal',
+    uploadDate: '2020-05-20',
+    expiryDate: '2030-05-20',
+    fileName: 'trademark_registration.pdf',
+    userId: 'test@example.com',
+    notes: '10-year registration period. Must show proof of use between 5th and 6th year.',
+    organization: 'Patent and Trademark Office',
+    renewalContact: 'trademarks@pto.gov'
+  },
+  {
+    name: 'Workers Compensation Insurance',
+    type: 'Insurance',
+    category: 'HR',
+    uploadDate: '2023-12-05',
+    expiryDate: '2024-12-05',
+    fileName: 'workers_comp.pdf',
+    userId: 'test@example.com',
+    notes: 'Required by law. Premium based on payroll and industry classification.',
+    organization: 'State Insurance Fund',
+    renewalContact: 'claims@stateinsurance.gov'
+  },
+  {
+    name: 'Environmental Compliance Permit',
+    type: 'Permit',
+    category: 'Compliance',
+    uploadDate: '2023-08-15',
+    expiryDate: '2025-08-15',
+    fileName: 'environmental_permit.pdf',
+    userId: 'test@example.com',
+    notes: 'Biennial renewal. Requires environmental impact assessment.',
+    organization: 'Environmental Protection Agency',
+    renewalContact: 'permits@epa.gov'
+  },
+  {
+    name: 'PCI DSS Compliance Certificate',
+    type: 'Certificate',
+    category: 'Security',
+    uploadDate: '2023-11-20',
+    expiryDate: '2024-11-20',
+    fileName: 'pci_dss_cert.pdf',
+    userId: 'test@example.com',
+    notes: 'Required for credit card processing. Annual security audit needed.',
+    organization: 'Payment Card Industry Security Standards Council',
+    renewalContact: 'compliance@pcissc.org'
+  },
+  {
+    name: 'Vehicle Insurance',
+    type: 'Insurance',
+    category: 'Fleet',
+    uploadDate: '2023-09-10',
+    expiryDate: '2024-03-10',
+    fileName: 'vehicle_insurance.pdf',
+    userId: 'test@example.com',
+    notes: 'Covers 5 company vehicles. Consider bundling with other insurance policies.',
+    organization: 'AutoInsure Co.',
+    renewalContact: 'fleet@autoinsure.com'
+  },
+  {
+    name: 'Domain Name Registration',
+    type: 'Registration',
+    category: 'IT',
+    uploadDate: '2023-01-15',
+    expiryDate: '2025-01-15',
+    fileName: 'domain_registration.pdf',
+    userId: 'test@example.com',
+    notes: 'Auto-renewal enabled. Update payment method if needed.',
+    organization: 'Domain Registrar Inc.',
+    renewalContact: 'support@domainregistrar.com'
+  },
+  {
+    name: 'Professional License - CPA',
+    type: 'License',
+    category: 'Professional',
+    uploadDate: '2023-06-30',
+    expiryDate: '2024-06-30',
+    fileName: 'cpa_license.pdf',
+    userId: 'test@example.com',
+    notes: 'Requires 40 hours of continuing education credits for renewal.',
+    organization: 'State Board of Accountancy',
+    renewalContact: 'licensing@accountancy.gov'
   }
 ];
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Clock, AlertTriangle, Calendar, TrendingUp, Filter, ChevronDown, ChevronUp, Info } from 'lucide-react';
+import { Clock, AlertTriangle, Calendar, TrendingUp, Filter, ChevronDown, ChevronUp, Info, CheckCircle } from 'lucide-react';
 import { useDocuments } from '../context/DocumentContext';
 import { motion } from 'framer-motion';
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ArrowRight, ArrowLeft } from 'lucide-react';
+import { X, ArrowRight, ArrowLeft, CheckCircle } from 'lucide-react';
 import { useUserSettings } from '../../context/UserSettingsContext';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,7 +19,7 @@ const OnboardingTour: React.FC = () => {
   const steps: OnboardingStep[] = [
     {
       title: 'Welcome to PaperTrail',
-      content: 'Your document compliance tracker. Let\'s take a quick tour to help you get started.',
+      content: 'Your document compliance tracker. Let\'s take a quick tour of the main features.',
       target: '.dashboard-overview',
       placement: 'bottom'
     },
@@ -27,13 +27,13 @@ const OnboardingTour: React.FC = () => {
       title: 'Add Documents',
       content: 'Click here to add new documents, set expiry dates, and upload files.',
       target: '.add-document-button',
-      placement: 'bottom'
+      placement: 'left'
     },
     {
-      title: 'Track Expirations',
-      content: 'Monitor upcoming document expirations and get alerts before they expire.',
-      target: '.expiry-tracker-link',
-      placement: 'right'
+      title: 'Document Overview',
+      content: 'This chart shows the status of all your documents at a glance.',
+      target: '.minimal-card',
+      placement: 'bottom'
     }
   ];
 
@@ -141,7 +141,8 @@ const OnboardingTour: React.FC = () => {
       >
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-100 dark:border-gray-700 p-5">
           <div className="flex justify-between items-center mb-3">
-            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center">
+              <CheckCircle className="w-5 h-5 text-green-500 mr-2" />
               {steps[currentStep].title}
             </h3>
             <button 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Bell, User, Shield, Mail, RefreshCw } from 'lucide-react';
+import { Bell, User, Shield, Moon, Sun, RefreshCw, Building } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useUserSettings } from '../context/UserSettingsContext';
 import { useTheme } from '../context/ThemeContext';
@@ -11,7 +11,7 @@ const SettingsPage: React.FC = () => {
   
   const [name, setName] = useState(user?.name || '');
   const [email, setEmail] = useState(user?.email || '');
-  const [department, setDepartment] = useState(user?.department || '');
+  const [organization, setOrganization] = useState(user?.department || '');
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
   const [activeTab, setActiveTab] = useState('profile');
@@ -33,7 +33,7 @@ const SettingsPage: React.FC = () => {
     // Simulate API call
     setTimeout(() => {
       // Update user settings
-      updateSettings({ department });
+      updateSettings({ department: organization });
       
       // Show success message
       setSaveMessage('Profile updated successfully');
@@ -118,7 +118,11 @@ const SettingsPage: React.FC = () => {
                     : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'
                 }`}
               >
-                <Mail className="w-5 h-5" />
+                {theme === 'dark' ? (
+                  <Moon className="w-5 h-5" />
+                ) : (
+                  <Sun className="w-5 h-5" />
+                )}
                 <span>Appearance</span>
               </button>
             </nav>
@@ -151,12 +155,12 @@ const SettingsPage: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Organization/Department</label>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Organization</label>
                       <input 
                         type="text" 
                         className="minimal-input dark:bg-gray-700 dark:text-white dark:border-gray-600" 
-                        value={department}
-                        onChange={(e) => setDepartment(e.target.value)}
+                        value={organization}
+                        onChange={(e) => setOrganization(e.target.value)}
                         placeholder="e.g. Legal, HR, Finance"
                       />
                     </div>
@@ -181,6 +185,56 @@ const SettingsPage: React.FC = () => {
                       disabled={isSaving}
                     >
                       {isSaving ? 'Saving...' : 'Save Changes'}
+                    </button>
+                  </div>
+                </form>
+              </div>
+              
+              <div className="minimal-card p-6 mt-6 dark:bg-gray-800">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Organization Details</h2>
+                
+                <form className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Organization Name</label>
+                    <input 
+                      type="text" 
+                      className="minimal-input dark:bg-gray-700 dark:text-white dark:border-gray-600" 
+                      placeholder="Your company name"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Industry</label>
+                    <select className="minimal-input dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                      <option value="">Select industry</option>
+                      <option value="healthcare">Healthcare</option>
+                      <option value="finance">Finance</option>
+                      <option value="technology">Technology</option>
+                      <option value="education">Education</option>
+                      <option value="manufacturing">Manufacturing</option>
+                      <option value="retail">Retail</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Company Size</label>
+                    <select className="minimal-input dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                      <option value="">Select company size</option>
+                      <option value="1-10">1-10 employees</option>
+                      <option value="11-50">11-50 employees</option>
+                      <option value="51-200">51-200 employees</option>
+                      <option value="201-500">201-500 employees</option>
+                      <option value="501+">501+ employees</option>
+                    </select>
+                  </div>
+                  
+                  <div className="flex justify-end">
+                    <button 
+                      type="button" 
+                      className="minimal-button-primary"
+                    >
+                      Save Organization Details
                     </button>
                   </div>
                 </form>
@@ -241,6 +295,81 @@ const SettingsPage: React.FC = () => {
                       />
                       <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
                     </label>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="minimal-card p-6 mt-6 dark:bg-gray-800">
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Notification Schedule</h2>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      When should we send expiry notifications?
+                    </label>
+                    <div className="space-y-2">
+                      <div className="flex items-center">
+                        <input 
+                          id="notify-30" 
+                          type="checkbox" 
+                          className="h-4 w-4 text-gray-900 focus:ring-gray-500 border-gray-300 rounded"
+                          defaultChecked
+                        />
+                        <label htmlFor="notify-30" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                          30 days before expiry
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input 
+                          id="notify-14" 
+                          type="checkbox" 
+                          className="h-4 w-4 text-gray-900 focus:ring-gray-500 border-gray-300 rounded"
+                          defaultChecked
+                        />
+                        <label htmlFor="notify-14" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                          14 days before expiry
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input 
+                          id="notify-7" 
+                          type="checkbox" 
+                          className="h-4 w-4 text-gray-900 focus:ring-gray-500 border-gray-300 rounded"
+                          defaultChecked
+                        />
+                        <label htmlFor="notify-7" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                          7 days before expiry
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input 
+                          id="notify-1" 
+                          type="checkbox" 
+                          className="h-4 w-4 text-gray-900 focus:ring-gray-500 border-gray-300 rounded"
+                          defaultChecked
+                        />
+                        <label htmlFor="notify-1" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                          1 day before expiry
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input 
+                          id="notify-expired" 
+                          type="checkbox" 
+                          className="h-4 w-4 text-gray-900 focus:ring-gray-500 border-gray-300 rounded"
+                          defaultChecked
+                        />
+                        <label htmlFor="notify-expired" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                          On expiry date
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="flex justify-end">
+                    <button className="minimal-button-primary">
+                      Save Notification Schedule
+                    </button>
                   </div>
                 </div>
               </div>
@@ -305,6 +434,16 @@ const SettingsPage: React.FC = () => {
                       </div>
                     </div>
                   </div>
+                  
+                  <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
+                    <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Two-Factor Authentication</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      Add an extra layer of security to your account by enabling two-factor authentication.
+                    </p>
+                    <button className="minimal-button-primary">
+                      Enable Two-Factor Authentication
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -360,6 +499,54 @@ const SettingsPage: React.FC = () => {
                     </div>
                     <div className="h-24 bg-gray-900 border border-gray-700 rounded-lg shadow-sm"></div>
                   </button>
+                </div>
+                
+                <div className="mt-6 pt-6 border-t border-gray-100 dark:border-gray-700">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Display Options</h3>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">Reduce Motion</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Minimize animations throughout the app</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          className="sr-only peer" 
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
+                      </label>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">High Contrast</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Increase contrast for better readability</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          className="sr-only peer" 
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
+                      </label>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-gray-900 dark:text-white">Larger Text</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">Increase text size throughout the app</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input 
+                          type="checkbox" 
+                          className="sr-only peer" 
+                        />
+                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-gray-300 dark:peer-focus:ring-gray-700 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gray-900"></div>
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDocuments } from '../../context/DocumentContext';
-import { FileText, Calendar, Tag, Clock, ArrowLeft, Edit, Trash2, Download, Building, Mail, AlertTriangle, CheckCircle } from 'lucide-react';
+import { FileText, Calendar, Tag, Clock, ArrowLeft, Edit, Trash2, Download, Building, Mail, AlertTriangle, CheckCircle, Users, Link, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const DocumentDetail: React.FC = () => {
@@ -184,6 +184,47 @@ const DocumentDetail: React.FC = () => {
                 </div>
               </div>
             )}
+            
+            {/* Additional Information */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+              <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl">
+                <div className="flex items-center space-x-2 mb-3">
+                  <Users className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <h3 className="font-medium text-gray-900 dark:text-white">Access & Sharing</h3>
+                </div>
+                <div className="space-y-2">
+                  <div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Shared With</p>
+                    <p className="font-medium text-gray-900 dark:text-white">Only you</p>
+                  </div>
+                  <div>
+                    <button className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center">
+                      <Link className="w-4 h-4 mr-1" />
+                      Share document
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-700/50 p-4 rounded-xl">
+                <div className="flex items-center space-x-2 mb-3">
+                  <ExternalLink className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                  <h3 className="font-medium text-gray-900 dark:text-white">Related Resources</h3>
+                </div>
+                <div className="space-y-2">
+                  <div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Renewal Website</p>
+                    <a href="#" className="font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                      Visit renewal portal
+                    </a>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Related Documents</p>
+                    <p className="font-medium text-gray-900 dark:text-white">None linked</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -264,6 +305,30 @@ const DocumentDetail: React.FC = () => {
                 <div className={`absolute -left-6 w-4 h-4 rounded-full ${document.status === 'expired' ? 'bg-red-600' : 'bg-gray-300 dark:bg-gray-600'} border-2 border-white dark:border-gray-800`}></div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">Expiry Date</p>
                 <p className="text-xs text-gray-500 dark:text-gray-400">{formatDate(document.expiryDate)}</p>
+              </div>
+              
+              {/* Renewal Process */}
+              <div className="relative">
+                <div className="absolute -left-6 w-4 h-4 rounded-full bg-blue-500 border-2 border-white dark:border-gray-800"></div>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">Renewal Process</p>
+                <div className="mt-2 space-y-2">
+                  <div className="flex items-center">
+                    <div className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-xs mr-2">1</div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Contact renewal authority</p>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-xs mr-2">2</div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Submit renewal application</p>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-xs mr-2">3</div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Pay renewal fees</p>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-5 h-5 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-xs mr-2">4</div>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Upload new document to PaperTrail</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
