@@ -10,7 +10,7 @@
   }
   
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    @apply bg-gray-50 text-gray-900 antialiased dark:bg-gray-900 dark:text-white;
   }
 
   * {
@@ -59,11 +59,11 @@
   .stagger-delay-5 { transition-delay: 0.5s; }
 
   .glass-effect {
-    @apply bg-white/80 backdrop-blur-sm border border-white/20;
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 dark:bg-gray-800/80 dark:border-gray-700/20;
   }
 
   .minimal-card {
-    @apply bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300;
+    @apply bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 dark:bg-gray-800 dark:border-gray-700;
   }
 
   .minimal-button {
@@ -71,15 +71,15 @@
   }
 
   .minimal-button-primary {
-    @apply minimal-button bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-500 shadow-sm hover:shadow-md;
+    @apply minimal-button bg-gray-900 text-white hover:bg-gray-800 focus:ring-gray-500 shadow-sm hover:shadow-md dark:bg-gray-700 dark:hover:bg-gray-600;
   }
 
   .minimal-button-secondary {
-    @apply minimal-button bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-300;
+    @apply minimal-button bg-gray-100 text-gray-700 hover:bg-gray-200 focus:ring-gray-300 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600;
   }
 
   .minimal-input {
-    @apply block w-full px-4 py-3 border border-gray-200 rounded-xl text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200;
+    @apply block w-full px-4 py-3 border border-gray-200 rounded-xl text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all duration-200 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:focus:ring-gray-500;
   }
 
   .sidebar-link {
@@ -133,6 +133,14 @@
   background: #9ca3af;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #4b5563;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
 /* Smooth page transitions */
 .page-transition {
   animation: fadeInUp 0.6s ease-out;
@@ -151,7 +159,7 @@
 
 /* Loading skeleton */
 .skeleton {
-  @apply animate-pulse bg-gray-200 rounded;
+  @apply animate-pulse bg-gray-200 rounded dark:bg-gray-700;
 }
 
 /* Intersection observer animations */
