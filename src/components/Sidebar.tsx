@@ -58,7 +58,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   to={item.to}
                   onClick={() => window.innerWidth < 1024 && onClose()}
                   className={({ isActive }) =>
-                    isActive ? 'sidebar-link-active' : 'sidebar-link-inactive'
+                    `group ${isActive ? 'sidebar-link-active' : 'sidebar-link-inactive'}`
                   }
                 >
                   <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />
