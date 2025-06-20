@@ -30,9 +30,15 @@ const OnboardingTour: React.FC = () => {
       placement: 'left'
     },
     {
-      title: 'Document Overview',
-      content: 'This chart shows the status of all your documents at a glance.',
-      target: '.minimal-card',
+      title: 'Check Expiries',
+      content: 'View and manage documents that are expiring soon.',
+      target: '.expiry-tracker-link',
+      placement: 'bottom'
+    },
+    {
+      title: 'View All Documents',
+      content: 'Access your complete document library here.',
+      target: '.documents-link',
       placement: 'bottom'
     }
   ];
@@ -51,15 +57,16 @@ const OnboardingTour: React.FC = () => {
   }, [settings.hasCompletedOnboarding]);
 
   const positionTooltip = (step: OnboardingStep) => {
-    let element: HTMLElement | null = null;
+    const element = document.querySelector(step.target);
     
-    if (step.target === 'body') {
-      element = document.body;
-    } else {
-      element = document.querySelector(step.target);
+    if (!element) {
+      // If element not found, position in center of screen
+      setTooltipPosition({
+        top: window.innerHeight / 2 - 90,
+        left: window.innerWidth / 2 - 160
+      });
+      return;
     }
-    
-    if (!element) return;
     
     const rect = element.getBoundingClientRect();
     const tooltipWidth = 320;

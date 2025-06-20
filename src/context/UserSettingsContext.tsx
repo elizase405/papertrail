@@ -37,9 +37,21 @@ export const UserSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ 
       const storedSettings = localStorage.getItem(`settings_${user.id}`);
       if (storedSettings) {
         setSettings(JSON.parse(storedSettings));
+      } else {
+        // If no settings exist yet, create default settings
+        const defaultSettings = {
+          notificationsEnabled: true,
+          emailNotifications: true,
+          weeklyReports: true,
+          department: user.department || '',
+          hasCompletedOnboarding: false,
+          theme: theme as 'light' | 'dark'
+        };
+        setSettings(defaultSettings);
+        localStorage.setItem(`settings_${user.id}`, JSON.stringify(defaultSettings));
       }
     }
-  }, [user]);
+  }, [user, theme]);
 
   // Save settings to localStorage whenever they change
   useEffect(() => {
