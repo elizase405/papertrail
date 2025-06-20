@@ -58,7 +58,11 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   to={item.to}
                   onClick={() => window.innerWidth < 1024 && onClose()}
                   className={({ isActive }) =>
-                    `group ${isActive ? 'sidebar-link-active' : 'sidebar-link-inactive'}`
+                    `flex items-center space-x-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200 ${
+                      isActive 
+                        ? 'bg-gray-900 text-white shadow-sm' 
+                        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    }`
                   }
                 >
                   <item.icon className="w-5 h-5 transition-transform group-hover:scale-110" />

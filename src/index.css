@@ -85,13 +85,15 @@
   .sidebar-link {
     @apply flex items-center space-x-3 px-4 py-3 text-sm font-medium rounded-xl transition-all duration-200;
   }
+}
 
+@layer components {
   .sidebar-link-active {
-    @apply sidebar-link bg-gray-900 text-white shadow-sm;
+    @apply bg-gray-900 text-white shadow-sm;
   }
 
   .sidebar-link-inactive {
-    @apply sidebar-link text-gray-600 hover:bg-gray-100 hover:text-gray-900;
+    @apply text-gray-600 hover:bg-gray-100 hover:text-gray-900;
   }
 }
 
